@@ -91,11 +91,6 @@ class RegionController extends Controller
      * @param  \App\Region $region
      * @return \Illuminate\Http\Response
      */
-    public function destroyShow(Region $region)
-    {
-        return view('region.deleteShow', ['region'=>$region]);
-    }
-
     public function destroy(Region $region)
     {
         $region->delete();

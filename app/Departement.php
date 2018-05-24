@@ -10,7 +10,8 @@ class Departement extends Model
         'id',
         'name',
         'departement_number',
-        'region_id',
         'slug'
     ];
+
+
 }

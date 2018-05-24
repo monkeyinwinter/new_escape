@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>new_escape</title>
     <style>
-    .row_region {
+    .row {
       display: flex;
       width:750px;
       flex-direction: row;
     }
-    .row_region_col_1, .row_region_col_2, .row_region_col_3 {
+    .row_col {
       display: flex;
       width:250px;
     }
