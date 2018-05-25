@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Departement;
+use App\Region;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -13,10 +14,10 @@ class DepartementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Region $region)
     {
-        $departements = Departement::paginate(15);
-        return view('departement.index', compact('departements'));
+        $departements = Departement::where('region_id',$region->id)->paginate(15);
+        return view('departement.index', ['departements' => $departements, 'region' => $region]);
     }
 
     /**
@@ -24,35 +25,37 @@ class DepartementController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Region $region)
     {
-        return view('departement.create');
+        return view('departement.create', ['region'=> $region]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Region $region)
     {
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'slug' => 'required|max:255',
-            'departement_number'=> 'required|max:255',
+            'departement_number' => 'required|max:255',
         ]);
-        Departement::create($request->all());
-        return redirect()->route('departement.index');
+        $departement = new Departement($validatedData);
+        $departement->region_id = $region->id;
+        $departement->save();
+        return redirect()->route('departement.index', ['region'=>$region->id]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Departement  $departement
+     * @param  \App\Departement $departement
      * @return \Illuminate\Http\Response
      */
-    public function show(Departement $departement)
+    public function show(Region $region, Departement $departement)
     {
         //
     }
@@ -60,42 +63,41 @@ class DepartementController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Departement  $departement
+     * @param  \App\Departement $departement
      * @return \Illuminate\Http\Response
      */
-    public function edit(Departement $departement)
+    public function edit(Region $region, Departement $departement)
     {
-        return view('departement.edit', ['departement'=>$departement]);
+        return view('departement.edit', ['departement' => $departement], ['region'=>$region]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Departement  $departement
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Departement $departement
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Departement $departement)
+    public function update(Request $request, Region $region, Departement $departement)
     {
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'slug' => 'required|max:255',
-            'departement_number'=> 'required|max:255',
+            'departement_number' => 'required|max:255',
         ]);
         $departement->update($request->all());
-        $departements = Departement::paginate(25);
-        return redirect()->route('departement.index');
+        return redirect()->route('departement.index', ['region'=>$region->id]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Departement  $departement
+     * @param  \App\Departement $departement
      * @return \Illuminate\Http\Response
      */
-        public function destroy(Departement $departement)
+    public function destroy(Region $region, Departement $departement)
     {
         $departement->delete();
-        return redirect()->route('departement.index');
+        return redirect()->route('departement.index', ['region'=>$region->id]);
     }
 }

@@ -19,7 +19,7 @@
     </style>
 </head>
 <body>
-<P>layout base</P>
+
 @yield('contenu')
 
 </body>

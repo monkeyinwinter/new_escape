@@ -12,6 +12,8 @@ class Departement extends Model
         'departement_number',
         'slug'
     ];
-
+    public function region() {
+        return $this->belongsTo('App\Region');
+    }
 
 }

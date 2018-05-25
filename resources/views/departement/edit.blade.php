@@ -1,9 +1,9 @@
 @extends('layouts.base')
 @section('contenu')
 
-    <p>departement create</p>
+    <p>departement edit</p>
 
-    <form action="{{route('departement.update', ['departement'=>$departement->id])}}" method="post">
+    <form action="{{route('departement.update', ['departement'=>$departement->id],['region'=>$region->id])}}" method="post">
         @csrf
         <input type="texte" name="name" placeholder="region" value="{{ $departement->name }}">
         <input type="texte" name="slug" placeholder="slug" value="{{ $departement->slug }}">

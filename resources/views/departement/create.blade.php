@@ -3,7 +3,7 @@
 
     <p>departement create</p>
 
-    <form action="{{route('departement.store')}}" method="post">
+    <form action="{{ route('departement.store',['region'=>$region->id])}}" method="post">
         @csrf
         <input type="texte" name="name" placeholder="departement">
         <input type="texte" name="slug" placeholder="slug">

@@ -1,7 +1,7 @@
 @extends('layouts.base')
 @section('contenu')
 
-    <p>region create</p>
+    <p>region edit</p>
 
     <form action="{{route('region.update', ['region'=>$region->id])}}" method="post">
         @csrf

@@ -1,8 +1,9 @@
 @extends('layouts.base')
 @section('contenu')
-
     <p>departement liste</p>
-    <a href='{{ URL::route('departement.create') }}'>créer un nouveau departement</a>
+    <a href='{{ URL::route('region.index') }}'>RETOUR TOUTES LES REGIONS</a>
+    <h1>{{ $region->name}}</h1>
+    <a href='{{ URL::route('departement.create', ['region' => $region]) }}'>créer un nouveau departement</a>
 
     @forelse ($departements as $departement)
         <div class="row">
@@ -13,11 +14,11 @@
             </div>
             <div class="row_col">
                 <p>
-                    <a href='{{URL::route('departement.edit', ['departement'=>$departement->id])}}'>modifier</a>
+                    <a href='{{URL::route('departement.edit', ['region' => $region, 'departement'=>$departement->id])}}'>modifier</a>
                 </p>
             </div>
             <div class="row_col">
-                <form action="{{route('departement.destroy', ['departement'=>$departement->id])}}" method="GET">
+                <form action="{{route('departement.destroy', ['region' => $region, 'departement'=>$departement->id])}}" method="GET">
                     <button type="submit">Supprimer</button>
                 </form>
             </div>

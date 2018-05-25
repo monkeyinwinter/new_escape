@@ -19,7 +19,9 @@ class CreateDepartementsTable extends Migration
             $table->string('name')->unique();
             $table->string('slug')->unique();
             $table->string('departement_number');
+            $table->integer('region_id')->unsigned();
 
+            $table->foreign('region_id')->references('id')->on('regions');
         });
     }
 
