@@ -37,10 +37,11 @@ class RegionController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $request->validate([
             'name' => 'required|max:255',
             'slug' => 'required|max:255',
         ]);
+
         Region::create($request->all());
         return redirect()->route('region.index');
     }
@@ -76,12 +77,12 @@ class RegionController extends Controller
      */
     public function update(Request $request, Region $region)
     {
-        $validatedData = $request->validate([
+        $request->validate([
             'name' => 'required|max:255',
             'slug' => 'required|max:255',
         ]);
         $region->update($request->all());
-        $regions = Region::paginate(25);
+        //$regions = Region::paginate(25);
         return redirect()->route('region.index');
     }
 

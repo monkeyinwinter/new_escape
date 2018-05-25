@@ -15,6 +15,7 @@
             <div class="row_col">
                 <p>
                     <a href='{{URL::route('departement.edit', ['region' => $region, 'departement'=>$departement->id])}}'>modifier</a>
+                    <a href='{{URL::route('ville.index', ['region' => $region, 'departement'=>$departement->id])}}'>Ville</a>
                 </p>
             </div>
             <div class="row_col">

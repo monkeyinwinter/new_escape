@@ -68,7 +68,7 @@ class DepartementController extends Controller
      */
     public function edit(Region $region, Departement $departement)
     {
-        return view('departement.edit', ['departement' => $departement], ['region'=>$region]);
+        return view('departement.edit', ['departement' => $departement,'region'=>$region]);
     }
 
     /**
@@ -80,7 +80,7 @@ class DepartementController extends Controller
      */
     public function update(Request $request, Region $region, Departement $departement)
     {
-        $validatedData = $request->validate([
+        $request->validate([
             'name' => 'required|max:255',
             'slug' => 'required|max:255',
             'departement_number' => 'required|max:255',
