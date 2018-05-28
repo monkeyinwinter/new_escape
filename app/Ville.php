@@ -10,12 +10,15 @@ class Ville extends Model
         'id',
         'name',
         'departement_id',
+        'region_departementale',
+        'departement_number',
         'slug'
     ];
-    public function region() {
+    public function departement() {
         return $this->belongsTo('App\Departement');
     }
-    //public function spots() {
-        //return $this->hasMany('App\Spot');
-    //}
+    public function spot() {
+        return $this->hasMany('App\Spot');
+    }
+
 }

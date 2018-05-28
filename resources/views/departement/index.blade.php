@@ -1,16 +1,15 @@
 @extends('layouts.base')
 @section('contenu')
     <p>departement liste</p>
-    <a href='{{ URL::route('region.index') }}'>RETOUR TOUTES LES REGIONS</a>
+    <a href='{{ URL::route('region.index') }}'>France</a>
     <h1>{{ $region->name}}</h1>
+
     <a href='{{ URL::route('departement.create', ['region' => $region]) }}'>créer un nouveau departement</a>
 
     @forelse ($departements as $departement)
         <div class="row">
             <div class="row_col">
-                <h4>
-                    {{ $departement->name }}
-                </h4>
+                <h4>{{ $departement->name }}</h4>
             </div>
             <div class="row_col">
                 <p>

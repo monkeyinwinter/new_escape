@@ -16,7 +16,7 @@ class VilleController extends Controller
      */
     public function index(Region $region, Departement $departement)
     {
-        $villes = Ville::where('departement_id',$departement->id)->paginate(15);
+        $villes = Ville::where('departement_id',$departement->id)->paginate(100);
         return view('ville.index', ['villes' => $villes, 'departement' => $departement, 'region' => $region]);
     }
 
@@ -41,6 +41,8 @@ class VilleController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'slug' => 'required|max:255',
+            'region_departementale' => 'required|max:255',
+            'departement_number' => 'required|max:255',
          ]);
         $ville = new Ville($validatedData);
         $ville->departement_id = $departement->id;
@@ -79,7 +81,14 @@ class VilleController extends Controller
      */
     public function update(Request $request, Region $region, Departement $departement, Ville $ville)
     {
-        //
+      $request->validate([
+        'name' => 'required|max:255',
+        'slug' => 'required|max:255',
+        'region_departementale' => 'required|max:255',
+        'departement_number' => 'required|max:255',   
+      ]);
+      $ville->update($request->all());
+      return redirect()->route('ville.index', ['ville'=>$ville->id,'region'=>$region->id, 'departement'=>$departement->id]);
     }
 
     /**

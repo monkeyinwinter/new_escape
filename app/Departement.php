@@ -18,6 +18,4 @@ class Departement extends Model
     public function ville() {
         return $this->hasMany('App\Ville');
     }
-
-
 }

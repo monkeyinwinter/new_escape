@@ -14,7 +14,7 @@ class Region extends Model
         'name',
         'slug'
     ];
-    public function departements(){
+    public function departement(){
         return $this->hasMany('App\Departement');
     }
 }

@@ -18,6 +18,8 @@ class CreateVillesTable extends Migration
             $table->timestamps();
             $table->string('name');
             $table->string('slug');
+            $table->string('region_departementale');
+            $table->string('departement_number');
             $table->integer('departement_id')->unsigned()->nullable();
 
             $table->foreign('departement_id')->references('id')->on('departements')->onDelete('cascade')->onUpdate('cascade');

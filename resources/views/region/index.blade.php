@@ -2,14 +2,12 @@
 @section('contenu')
 
     <p>region liste</p>
-    <a href='{{ URL::route('region.create') }}'>créer une nouvelle région</a>
+    <a href='{{ URL::route('region.create') }}'>Creer une region</a>
 
     @forelse ($regions as $region)
         <div class="row">
           <div class="row_col">
-            <h4>
-              {{ $region->name }}
-            </h4>
+            <h4>{{ $region->name }}</h4>
           </div>
           <div class="row_col">
             <p>

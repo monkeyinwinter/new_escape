@@ -8,18 +8,19 @@
     <style>
     .row {
       display: flex;
-      width:750px;
+      width:1600px;
       flex-direction: row;
     }
     .row_col {
       display: flex;
-      width:250px;
+      width:800px;
+      flex-direction: column;
     }
 
     </style>
 </head>
 <body>
-
+<h1>ESC_AP</H1>
 @yield('contenu')
 
 </body>
