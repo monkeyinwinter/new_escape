@@ -57,3 +57,7 @@ Route::prefix('region')->group(function () {
     Route::post('{region}/departement/{departement}/ville/{ville}/spot/{spot}/voie/{voie}', 'VoieController@update')->name('voie.update');
     Route::get('{region}/departement/{departement}/ville/{ville}/spot/{spot}/voie/{voie}/destroy', 'VoieController@destroy')->name('voie.destroy');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
