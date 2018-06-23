@@ -15,12 +15,10 @@ class CreateSpotsTable extends Migration
     {
       Schema::create('spots', function (Blueprint $table) {
           $table->increments('id');
-          $table->timestamps();
           $table->string('name');
           $table->string('slug');
           $table->string('nombre_voies');
           $table->string('nombre_degaines');
-          $table->string('expo_soleil');
           $table->string('temps_approche');
           $table->string('type_roche');
           $table->string('altitude');
@@ -31,9 +29,13 @@ class CreateSpotsTable extends Migration
           $table->string('voies_6');
           $table->string('voies_7');
           $table->string('voies_8');
+          $table->string('expo_soleil');
+          $table->timestamps();
 
           $table->integer('ville_id')->unsigned()->nullable();
           $table->foreign('ville_id')->references('id')->on('villes')->onDelete('cascade')->onUpdate('cascade');
+
+
       });
     }
 

@@ -23,11 +23,13 @@ class Spot extends Model
     'voies_5',
     'voies_6',
     'voies_7',
-    'voies_8'
+    'voies_8',
+
   ];
   public function ville() {
       return $this->belongsTo('App\Ville');
   }
+
   public function voie() {
       return $this->hasMany('App\Voie');
   }

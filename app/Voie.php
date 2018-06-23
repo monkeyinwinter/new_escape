@@ -20,4 +20,5 @@ class Voie extends Model
   public function spot() {
       return $this->belongsTo('App\Spot');
   }
+
 }

@@ -28,6 +28,7 @@ class SpotsTableSeeder extends Seeder
          'voies_7'=>'2',
          'voies_8'=>'0',
          'ville_id'=>'30',
+
       ]);
     }
 }

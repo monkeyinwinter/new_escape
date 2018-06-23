@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exposition;
 use App\Spot;
 use App\Ville;
 use App\Departement;

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Departement;
 use App\Region;
+
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -18,6 +20,11 @@ class DepartementController extends Controller
     {
         $departements = Departement::where('region_id',$region->id)->paginate(15);
         return view('departement.index', ['departements' => $departements, 'region' => $region]);
+    }
+
+    public function json(Region $region)
+    {
+        return Departement::where('region_id',$region->id)->get();
     }
 
     /**

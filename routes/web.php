@@ -17,6 +17,7 @@ Route::get('/', function () {
 });
 
 Route::prefix('region')->group(function () {
+
     Route::get('/', 'RegionController@index')->name('region.index');
     Route::get('/create', 'RegionController@create')->name('region.create');
     Route::post('/', 'RegionController@store')->name('region.store');
@@ -25,7 +26,11 @@ Route::prefix('region')->group(function () {
     Route::post('/{region}', 'RegionController@update')->name('region.update');
     Route::get('/{region}/destroy', 'RegionController@destroy')->name('region.destroy');
 
+
     Route::get('{region}/departement/', 'DepartementController@index')->name('departement.index');
+
+    Route::get('{region}/departement/json', 'DepartementController@json')->name('departement.json');
+
     Route::get('{region}/departement/create', 'DepartementController@create')->name('departement.create');
     Route::post('{region}/departement/', 'DepartementController@store')->name('departement.store');
     //Route::get('{region}/departement/{departement}', 'DepartementController@show')->name('departement_show');
@@ -33,7 +38,11 @@ Route::prefix('region')->group(function () {
     Route::post('{region}/departement/{departement}', 'DepartementController@update')->name('departement.update');
     Route::get('{region}/departement/{departement}/destroy', 'DepartementController@destroy')->name('departement.destroy');
 
+
     Route::get('{region}/departement/{departement}/ville/', 'VilleController@index')->name('ville.index');
+
+    Route::get('{region}/departement/{departement}/json', 'VilleController@json')->name('ville.json');
+
     Route::get('{region}/departement/{departement}/ville/create', 'VilleController@create')->name('ville.create');
     Route::post('{region}/departement/{departement}/ville/', 'VilleController@store')->name('ville.store');
     //Route::get('{region}/departement/{departement}/ville/{ville}', 'VilleController@show')->name('ville_show');

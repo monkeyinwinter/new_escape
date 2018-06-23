@@ -20,6 +20,9 @@
         <input type="texte" name="voies_6" placeholder="nombre voies 6">
         <input type="texte" name="voies_7" placeholder="nombre voies 7">
         <input type="texte" name="voies_8" placeholder="nombre voies 8">
+
+        <input type="texte" name="exposition_id" placeholder="exposition_id">
+
         <input type="submit" value="enregistrer">
 
     </form>

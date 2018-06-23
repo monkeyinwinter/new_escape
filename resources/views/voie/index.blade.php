@@ -22,6 +22,15 @@
     </h2>
     <a href='{{ URL::route('voie.create', ['region' => $region,'departement' => $departement, 'ville'=>$ville, 'spot'=>$spot]) }}'>créer une nouvelle voie</a>
 
+<p>
+  <select name="voie" id ="voie" class="form-control">
+   @foreach($voies as $voie)
+      <option value="{{$voie->id}}">{{$voie->name}}</option>
+   @endforeach
+  </select>
+</p>
+
+
     @forelse ($voies as $voie)
         <div class="row">
             <div class="row_col">

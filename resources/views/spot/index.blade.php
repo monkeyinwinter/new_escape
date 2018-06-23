@@ -35,6 +35,8 @@
                 <p>Nombre de voies niveau 7 : {{ $spot->voies_7 }}</p>
                 <p>Nombre de voies niveau 8 : {{ $spot->voies_8 }}</p>
 
+
+
             </div>
             <div class="row_col">
                 <p>

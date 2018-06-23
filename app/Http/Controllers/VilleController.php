@@ -20,6 +20,12 @@ class VilleController extends Controller
         return view('ville.index', ['villes' => $villes, 'departement' => $departement, 'region' => $region]);
     }
 
+
+    public function json(Departement $departement)
+    {
+        return Ville::where('departement_id',$departement->id)->get();
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -85,7 +91,7 @@ class VilleController extends Controller
         'name' => 'required|max:255',
         'slug' => 'required|max:255',
         'region_departementale' => 'required|max:255',
-        'departement_number' => 'required|max:255',   
+        'departement_number' => 'required|max:255',
       ]);
       $ville->update($request->all());
       return redirect()->route('ville.index', ['ville'=>$ville->id,'region'=>$region->id, 'departement'=>$departement->id]);
