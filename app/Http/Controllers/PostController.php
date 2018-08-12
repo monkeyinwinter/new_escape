@@ -37,14 +37,17 @@ class PostController extends Controller
 
     public function mesposts()
     {
-        $users = Auth::user();
 
-        $posts = DB::table('posts')
-                ->Join('users', 'posts.user_id', '=', 'users.id')
-                ->select('*')
-                ->get();
+      $auths = Auth::user()->id;
+      var_dump($auths);
 
-        return view('post.mesposts', ['posts'=>$posts, 'users'=>$users]);
+      $users = DB::table('users')
+              ->leftJoin('posts', 'users.id', '=', 'posts.user_id')
+              ->select('name')
+              ->get();
+
+      $posts = Post::paginate(10);
+      return view('post.mesposts', ['posts'=>$posts, 'users'=>$users, 'auths'=>$auths]);
 
     }
     /**

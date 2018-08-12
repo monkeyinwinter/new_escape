@@ -8,14 +8,18 @@
 
     @forelse ($posts as $post)
 
-          <h4>{{ $post->title }}</h4>
+          @if ( $post->user->id == $auths )
+            <h4>{{ $post->title }}</h4>
 
-          <p>{{ $post->textPost }}</p>
+            <p>{{ $post->textPost }}</p>
 
-          <p>Nom de l'auteur : {{ $users->name}}<p>
+            <p>Nom de l'auteur : {{ $post->user->name}}<p>
 
+          @elseif( !$post->user_id == $auths)
 
-    @empty 
+          @endif
+
+    @empty
         <p>Aucun post</p>
     @endforelse
 
