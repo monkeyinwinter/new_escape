@@ -17,7 +17,7 @@ function selectregion(regID) {
 </script>
 
 
-    <select name='region' class='form-control' onchange="javascript: selectregion(this.value);">
+    <!-- <select name='region' class='form-control' onchange="javascript: selectregion(this.value);">
       <option value="0">Choisissez une région</option>
         @foreach ($regions as $region)
                 <option value="{{ $region->id }}">
@@ -30,9 +30,9 @@ function selectregion(regID) {
       <option value="0">departements</option>
     </select>
 
+ -->
 
-
-
+<a href='{{ URL::route('home') }}'>Home</a>
 
 
     @forelse ($regions as $region)

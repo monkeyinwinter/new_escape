@@ -10,7 +10,7 @@ class Departement extends Model
         'id',
         'name',
         'departement_number',
-        'slug'
+        'slug',
     ];
     public function region() {
         return $this->belongsTo('App\Region');

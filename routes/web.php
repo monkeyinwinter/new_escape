@@ -70,3 +70,14 @@ Route::prefix('region')->group(function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/index', 'UserController@index')->name('user.index');
+Route::get('/index/mesposts', 'PostController@mesposts')->name('post.mesposts');
+// Route::get('user/', 'UserController@show')->name('user.index');
+
+Route::get('post/index', 'PostController@index')->name('post.index');
+Route::get('post/create', 'PostController@create')->name('post.create');
+Route::post('post/store', 'PostController@store')->name('post.store');
+Route::get('post/{post}/edit', 'PostController@edit')->name('post.edit');
+Route::post('post/update/{post}', 'PostController@update')->name('post.update');
+Route::get('post/{post}/destroy', 'PostController@destroy')->name('post.destroy');

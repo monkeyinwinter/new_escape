@@ -19,8 +19,8 @@ class CreateDepartementsTable extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('departement_number');
-            $table->integer('region_id')->unsigned()->nullable();
 
+            $table->integer('region_id')->unsigned()->nullable();
             $table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade')->onUpdate('cascade');
         });
     }
