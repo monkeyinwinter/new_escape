@@ -24,13 +24,19 @@ class Spot extends Model
     'voies_6',
     'voies_7',
     'voies_8',
-
+    'user_id',
   ];
-  public function ville() {
+    public function ville() {
       return $this->belongsTo('App\Ville');
-  }
-
-  public function voie() {
+    }
+    public function user() {
+        return $this->belongsTo('App\User');
+    }
+    public function voie() {
       return $this->hasMany('App\Voie');
-  }
+    }
+    public function post() {
+        return $this->hasMany('App\Post');
+    }
+
 }

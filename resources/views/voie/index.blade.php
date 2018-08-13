@@ -20,8 +20,13 @@
     <h2>
         {{ $spot->name}}
     </h2>
+    <h2>
+        Nombre de voies : {{ count($voies) }}
+    </h2>
+
     <a href='{{ URL::route('voie.create', ['region' => $region,'departement' => $departement, 'ville'=>$ville, 'spot'=>$spot]) }}'>créer une nouvelle voie</a>
 
+{{--
 <p>
   <select name="voie" id ="voie" class="form-control">
    @foreach($voies as $voie)
@@ -29,6 +34,7 @@
    @endforeach
   </select>
 </p>
+--}}
 
 
     @forelse ($voies as $voie)
@@ -43,6 +49,13 @@
                 <p>Quotation plaisir : {{ $voie->quotation_plaisir }}</p>
 
             </div>
+
+            <div class="row_col">
+                <p>
+                    <a href='{{URL::route('voie.showOneVoie', ['region' => $region, 'departement'=>$departement, 'ville'=>$ville, 'spot'=>$spot, 'voie'=>$voie->id])}}'>Voir la voie</a>
+                </p>
+            </div>
+
             <div class="row_col">
                 <p>
                     <a href='{{URL::route('voie.edit', ['region' => $region, 'departement'=>$departement, 'ville'=>$ville, 'spot'=>$spot, 'voie'=>$voie->id])}}'>modifier</a>

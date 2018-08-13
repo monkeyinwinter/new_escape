@@ -16,6 +16,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+route::get('/list', 'RegionController@list')->name('region.list');
+
+
 Route::prefix('region')->group(function () {
 
     Route::get('/', 'RegionController@index')->name('region.index');
@@ -65,6 +69,9 @@ Route::prefix('region')->group(function () {
     Route::get('{region}/departement/{departement}/ville/{ville}/spot/{spot}/voie/{voie}/edit', 'VoieController@edit')->name('voie.edit');
     Route::post('{region}/departement/{departement}/ville/{ville}/spot/{spot}/voie/{voie}', 'VoieController@update')->name('voie.update');
     Route::get('{region}/departement/{departement}/ville/{ville}/spot/{spot}/voie/{voie}/destroy', 'VoieController@destroy')->name('voie.destroy');
+
+    Route::get('{region}/departement/{departement}/ville/{ville}/spot/{spot}/voie/{voie}/showOneVoie/', 'VoieController@showOneVoie')->name('voie.showOneVoie');
+    Route::post('{region}/departement/{departement}/ville/{ville}/spot/{spot}/voie/{voie}/showOneVoie/', 'VoieController@saveImageVoie')->name('voie.saveImageVoie');
 });
 
 Auth::routes();

@@ -23,6 +23,7 @@ class CreateVoiesTable extends Migration
             $table->string('longueur_corde_conseillees');
             $table->string('nbre_degaines_conseillees');
             $table->string('quotation_plaisir');
+            $table->string('imgVoie')->default('images/default.png');
 
             $table->integer('spot_id')->unsigned()->nullable();
             $table->foreign('spot_id')->references('id')->on('spots')->onDelete('cascade')->onUpdate('cascade');

@@ -5,9 +5,19 @@ namespace App\Http\Controllers;
 use App\Region;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class RegionController extends Controller
 {
+
+    public function list () {
+
+        $regions = DB::select("SELECT * FROM regions" );
+
+        return view('region.list', ['regions'=>$regions]);
+    }
+
+
     /**
      * Display a listing of the resource.
      *

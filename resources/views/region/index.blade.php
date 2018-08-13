@@ -13,10 +13,13 @@ function selectregion(regID) {
   });
 }
 
-
 </script>
 
+    <h2>
+        Nombre de Regions : {{ count($regions) }}
+    </h2>
 
+{{--
     <select name='region' class='form-control' onchange="javascript: selectregion(this.value);">
       <option value="0">Choisissez une région</option>
         @foreach ($regions as $region)
@@ -26,36 +29,38 @@ function selectregion(regID) {
         @endforeach
     </select>
 
-    <select id='departements' class='form-control' onchange="javascript: selectdepartement(this.value);">
+    <select name='departement' id='departements' class='form-control' onchange="javascript: selectdepartement(this.value);">
       <option value="0">departements</option>
+        @foreach ($departements as $departement)
+                <option value="{{ $departement->id }}">
+                    {{ $departement->name }}
+                </option>
+        @endforeach
     </select>
-
-
-
-
-
+--}}
 
     @forelse ($regions as $region)
-        <div class="row">
-          <div class="row_col">
-
-
-
-            <h4>{{ $region->name }}</h4>
-          </div>
-          <div class="row_col">
+        <a href='{{URL::route('departement.index', ['region'=>$region->id])}}'>
+            <table class="hover">
+                <tr>
+                    <td>
+                        <h4>{{ $region->name }}</h4>
+                    </td>
+                    <td class="modif">
+                        <a href='{{URL::route('region.edit', ['region'=>$region->id])}}'>modifier</a>
+                    </td>
+                    <td class="btn sup">
+                        <form action="{{route('region.destroy', ['region'=>$region->id])}}" method="GET">
+                            <button type="submit">Supprimer</button>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </a>
             <p>
-              <a href='{{URL::route('region.edit', ['region'=>$region->id])}}'>modifier</a>
-              <a href='{{URL::route('departement.index', ['region'=>$region->id])}}'>Departement</a>
-              <a href='{{URL::route('departement.json', ['region'=>$region->id])}}'>Departement JSON</a>
+{{--              <a href='{{URL::route('departement.json', ['region'=>$region->id])}}'>Departement JSON</a>--}}
             </p>
-          </div>
-            <div class="row_col">
-                <form action="{{route('region.destroy', ['region'=>$region->id])}}" method="GET">
-                    <button type="submit">Supprimer</button>
-                </form>
-            </div>
-        </div>
+
     @empty
         <p>Aucune region</p>
     @endforelse

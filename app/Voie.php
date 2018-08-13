@@ -16,6 +16,7 @@ class Voie extends Model
     'longueur_corde_conseillees',
     'nbre_degaines_conseillees',
     'quotation_plaisir',
+    'imgVoie',
   ];
   public function spot() {
       return $this->belongsTo('App\Spot');

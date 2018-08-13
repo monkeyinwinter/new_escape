@@ -18,7 +18,7 @@ class DepartementController extends Controller
      */
     public function index(Region $region)
     {
-        $departements = Departement::where('region_id',$region->id)->paginate(15);
+        $departements = Departement::where('region_id',$region->id)->paginate(100);
         return view('departement.index', ['departements' => $departements, 'region' => $region]);
     }
 
@@ -46,8 +46,8 @@ class DepartementController extends Controller
     public function store(Request $request, Region $region)
     {
         $validatedData = $request->validate([
-            'name' => 'required|max:255',
-            'slug' => 'required|max:255',
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255',
             'departement_number' => 'required|max:255',
         ]);
         $departement = new Departement($validatedData);
@@ -88,8 +88,8 @@ class DepartementController extends Controller
     public function update(Request $request, Region $region, Departement $departement)
     {
         $request->validate([
-            'name' => 'required|max:255',
-            'slug' => 'required|max:255',
+            'name' => 'required|string|max:255',
+            'slug' => 'required|string|max:255',
             'departement_number' => 'required|max:255',
         ]);
         $departement->update($request->all());

@@ -1,10 +1,11 @@
 .row {
-  display: flex;
-  width:1600px;
-  flex-direction: row;
+    display: flex;
+    width:1600px;
+    flex-direction: row;
 }
 .row_col {
-  display: flex;
-  width:800px;
-  flex-direction: column;
+    display: flex;
+    width: 800px;
+    flex-direction: column;
 }
+

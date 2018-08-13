@@ -8,9 +8,13 @@ use App\Ville;
 use App\Departement;
 use App\Region;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Image;
+/*use Image;*/
 
 class VoieController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -20,6 +24,18 @@ class VoieController extends Controller
     {
       $voies = Voie::where('spot_id',$spot->id)->paginate(100);
       return view('voie.index', ['voies'=>$voies, 'spot'=>$spot, 'ville' => $ville, 'departement' => $departement, 'region' => $region]);
+    }
+
+
+    public function saveImageVoie(Request $request, Region $region, Departement $departement, Ville $ville, Spot $spot, Voie $voie)
+    {
+        return view('voie.showOneVoie', ['region'=>$region,'departement' => $departement,'ville'=>$ville, 'spot'=>$spot, 'voie'=>$voie]);
+    }
+
+
+    public function showOneVoie(Region $region, Departement $departement, Ville $ville, Spot $spot, Voie $voie)
+    {
+        return view('voie.showOneVoie', ['region'=>$region,'departement' => $departement,'ville'=>$ville, 'spot'=>$spot, 'voie'=>$voie]);
     }
 
     /**
@@ -111,4 +127,8 @@ class VoieController extends Controller
       $voie->delete();
       return redirect()->route('voie.index', ['region'=>$region->id, 'departement'=>$departement->id, 'ville'=>$ville->id, 'spot'=>$spot->id]);
     }
+
+
+
+
 }

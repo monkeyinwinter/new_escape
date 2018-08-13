@@ -13,7 +13,9 @@
       </a>
     </h1>
     <h1>{{ $ville->name}}</h1>
-
+    <h2>
+        Nombre de Spots : {{ count($spots) }}
+    </h2>
     <a href='{{ URL::route('spot.create', ['region' => $region,'departement' => $departement, 'ville'=>$ville]) }}'>créer un nouveau spot</a>
 
     @forelse ($spots as $spot)

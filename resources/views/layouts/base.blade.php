@@ -9,6 +9,35 @@
 
     <title>new_escape</title>
 
+    <style>
+        table {
+            margin-top: 20px;
+            border-bottom: 1px solid black;
+            border-right: 1px solid black;
+        }
+
+        td {
+            width: 400px;
+            border-right: 1px solid black;
+            text-align: center;
+        }
+        a {
+            text-decoration: none;
+        }
+        .btn {
+            width: 100px;
+        }
+        .hover:hover {
+            background-color: #b8daff;
+        }
+        .sup:hover {
+            background-color: red;
+        }
+        .modif:hover  {
+            background-color: #34ce57;
+        }
+    </style>
+
 </head>
 
 
