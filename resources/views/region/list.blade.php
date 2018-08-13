@@ -1,7 +1,7 @@
 @extends('layouts.base')
 @section('contenu')
 
-    toto
+    <a href='{{ URL::route('home') }}'>Home</a>
 
     @forelse ($regions as $region)
         <a href='{{URL::route('departement.index', ['region'=>$region->id])}}'>

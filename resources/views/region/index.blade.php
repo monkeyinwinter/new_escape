@@ -15,6 +15,8 @@ function selectregion(regID) {
 
 </script>
 
+    <a href='{{ URL::route('home') }}'>Home</a>
+
     <h2>
         Nombre de Regions : {{ count($regions) }}
     </h2>

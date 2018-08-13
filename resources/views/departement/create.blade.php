@@ -1,6 +1,8 @@
 @extends('layouts.base')
 @section('contenu')
 
+    <a href='{{ URL::route('home') }}'>Home</a>
+
     <p>departement create</p>
 
     <form action="{{ route('departement.store',['region'=>$region->id])}}" method="post">

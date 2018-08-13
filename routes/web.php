@@ -78,6 +78,12 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/index', 'UserController@index')->name('user.index');
 Route::get('/index/mesposts', 'PostController@mesposts')->name('post.mesposts');
+
+
+Route::get('/region/{region}/departement/{departement}/ville/{ville}/spot/{spot}/spotPostList', 'PostController@spotPostList')->name('spot.spotPostList');
+Route::get('/region/{region}/departement/{departement}/ville/{ville}/spot/{spot}/spotPostCreate', 'PostController@spotPostCreate')->name('spot.spotPostCreate');
+Route::post('/region/{region}/departement/{departement}/ville/{ville}/spot/{spot}/', 'PostController@spotPostStore')->name('spot.spotPostStore');
+
 // Route::get('user/', 'UserController@show')->name('user.index');
 Route::get('post/index', 'PostController@index')->name('post.index');
 Route::get('post/create', 'PostController@create')->name('post.create');

@@ -1,6 +1,8 @@
 @extends('layouts.base')
 @section('contenu')
 
+    <h4><a href='{{ URL::route('home') }}'>Home</a></h4>
+
     <a href='{{ URL::route('region.index') }}'>France</a>
     <h1>
         <a href='{{ URL::route('departement.index', ['region' => $region]) }}'>

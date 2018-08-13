@@ -1,6 +1,6 @@
 @extends('layouts.base')
 @section('contenu')
-
+    <a href='{{ URL::route('home') }}'>Home</a>
     <p>post edit</p>
     <h4>{{ $post->title }}</h4>
     <form action="{{route('post.update', ['post' => $post->id])}}" method="post">

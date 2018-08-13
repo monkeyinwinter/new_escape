@@ -7,6 +7,7 @@ use App\Spot;
 use App\Ville;
 use App\Departement;
 use App\Region;
+use App\Post;
 use Illuminate\Http\Request;
 
 class SpotController extends Controller

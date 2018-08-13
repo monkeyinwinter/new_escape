@@ -1,6 +1,8 @@
 @extends('layouts.base')
 @section('contenu')
 
+    <a href='{{ URL::route('home') }}'>Home</a>
+
     <p>spot create</p>
 
     <form action="{{ route('spot.store',['region'=>$region->id, 'departement'=>$departement->id, 'ville'=>$ville->id])}}" method="post">

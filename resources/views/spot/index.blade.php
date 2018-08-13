@@ -1,5 +1,8 @@
 @extends('layouts.base')
 @section('contenu')
+
+    <a href='{{ URL::route('home') }}'>Home</a>
+
     <p>spot liste</p>
     <a href='{{ URL::route('region.index') }}'>France</a>
     <h1>
@@ -40,12 +43,16 @@
 
 
             </div>
+
             <div class="row_col">
                 <p>
                     <a href='{{URL::route('spot.edit', ['region' => $region, 'departement'=>$departement, 'ville'=>$ville, 'spot'=>$spot->id])}}'>modifier</a>
                     <a href='{{URL::route('voie.index', ['region' => $region, 'departement'=>$departement, 'ville'=>$ville, 'spot'=>$spot->id])}}'>Voies</a>
                 </p>
+                <h2><a href='{{URL::route('spot.spotPostList', ['region' => $region, 'departement'=>$departement, 'ville'=>$ville, 'spot'=>$spot->id])}}'>Voir les posts de ce site</a></h2>
+                <h2><a href='{{URL::route('spot.spotPostCreate', ['region' => $region, 'departement'=>$departement, 'ville'=>$ville, 'spot'=>$spot->id])}}'>Créer un post pour ce site</a></h2>
             </div>
+
             <div class="row_col">
                 <form action="{{route('spot.destroy', ['region' => $region, 'departement'=>$departement, 'ville'=>$ville, 'spot'=>$spot->id])}}" method="GET">
                     <button type="submit">Supprimer</button>

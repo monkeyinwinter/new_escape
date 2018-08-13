@@ -22,8 +22,8 @@ class CreatePostsTable extends Migration
             $table->integer('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade')->onUpdate('cascade');
 
-            // $table->integer('spot_id')->unsigned()->nullable();
-            // $table->foreign('spot_id')->references('id')->on('spots')->onDelete('cascade')->onUpdate('cascade');
+            $table->integer('spot_id')->unsigned()->nullable();
+            $table->foreign('spot_id')->references('id')->on('spots')->onDelete('cascade')->onUpdate('cascade');
         });
 
     }

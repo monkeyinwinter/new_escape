@@ -1,10 +1,16 @@
 <?php
 namespace App\Http\Controllers;
+
+use App\Spot;
+use App\Ville;
+use App\Departement;
+use App\Region;
 use App\Post;
-use App\User;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+
+
 class PostController extends Controller
 {
     /**
@@ -15,24 +21,22 @@ class PostController extends Controller
     // <!-- {{ $users -> name }} -->
     public function index()
     {
-        $users = DB::table('users')
-            ->leftJoin('posts', 'users.id', '=', 'posts.user_id')
-            ->select('name')
-            ->get();
-        $posts = Post::paginate(10);
-        return view('post.index', ['posts'=>$posts, 'users'=>$users]);
+
+        $posts = Post::paginate(30);
+        return view('post.index', ['posts'=>$posts]);
     }
+
+
     public function mesposts()
     {
-        $auths = Auth::user()->id;
-        var_dump($auths);
-        $users = DB::table('users')
-            ->leftJoin('posts', 'users.id', '=', 'posts.user_id')
-            ->select('name')
-            ->get();
-        $posts = Post::paginate(10);
-        return view('post.mesposts', ['posts'=>$posts, 'users'=>$users, 'auths'=>$auths]);
+        $user = Auth::user();
+
+        $posts = Post::where('user_id',$user->id)->paginate(100);
+
+        return view('post.mesposts', ['posts'=>$posts]);
     }
+
+
     /**
      * Show the form for creating a new resource.
      *
@@ -51,13 +55,17 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
+
         $validatedData = $request->validate([
             'title' => 'required|max:255',
             'textPost' => 'required|max:255',
         ]);
+
         $post = new Post($validatedData);
         $post->user_id = $user->id;
+
         $post->save();
+
         return redirect()->route('post.index');
     }
     /**
@@ -97,4 +105,51 @@ class PostController extends Controller
         $post->delete();
         return redirect()->route('post.index');
     }
+
+
+    public function spotPostList(Region $region, Departement $departement, Ville $ville, Spot $spot)
+    {
+        $region = $region;
+        $departement = $departement;
+        $ville = $ville;
+        $spots = $spot;
+
+        $posts = Post::where('spot_id',$spot->id)->paginate(100);
+
+        return view('spot.spotPostList', ['posts'=>$posts, 'spots'=>$spots, 'ville' => $ville, 'departement' => $departement, 'region' => $region]);
+    }
+
+    public function spotPostCreate(Region $region, Departement $departement, Ville $ville, Spot $spot)
+    {
+        return view('spot.spotPostCreate', ['spot'=>$spot, 'region' => $region, 'departement' => $departement, 'ville' => $ville ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function spotPostStore(Request $request, Region $region, Departement $departement, Ville $ville, Spot $spot)
+    {
+
+        $spots = $spot;
+
+        $user = Auth::user();
+
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+            'textPost' => 'required|max:255',
+        ]);
+
+        $post = new Post($validatedData);
+        $post->user_id = $user->id;
+        $post->spot_id = $spot->id;
+
+        $post->save();
+
+        return redirect()->route('spot.index', ['spots'=>$spots, 'ville' => $ville, 'departement' => $departement, 'region' => $region]);
+    }
+
+
 }
