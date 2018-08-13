@@ -36,7 +36,15 @@ class User extends Authenticatable
     public function post() {
         return $this->hasMany('App\Post');
     }
-
+    public function ville() {
+        return $this->hasMany('App\Ville');
+    }
+    public function spot() {
+        return $this->hasMany('App\Spot');
+    }
+    public function voie() {
+        return $this->hasMany('App\Voie');
+    }
     public function isAdmin() {
         return $this->role === 'admin';
     }

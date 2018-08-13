@@ -25,6 +25,9 @@ class CreateVoiesTable extends Migration
             $table->string('quotation_plaisir');
             $table->string('imgVoie')->default('images/default.png');
 
+            $table->integer('user_id')->unsigned()->nullable()->default(1);;
+            $table->foreign('user_id')->references('id')->on('users');
+
             $table->integer('spot_id')->unsigned()->nullable();
             $table->foreign('spot_id')->references('id')->on('spots')->onDelete('cascade')->onUpdate('cascade');
         });

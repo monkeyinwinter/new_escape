@@ -20,7 +20,7 @@ class VoiesTableSeeder extends Seeder
          'nbre_degaines_conseillees'=>'12',
          'quotation_plaisir'=>'5/10',
          'spot_id'=>'1',
-      ]);
+]);
       DB::table('voies')->insert([
          'name'=>'Contorsion',
          'slug'=>'contorsion',

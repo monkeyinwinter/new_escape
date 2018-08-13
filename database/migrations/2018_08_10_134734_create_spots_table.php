@@ -32,10 +32,10 @@ class CreateSpotsTable extends Migration
             $table->string('expo_soleil');
             $table->timestamps();
 
-            $table->integer('ville_id')->unsigned()->unsigned()->nullable();
+            $table->integer('ville_id')->unsigned()->nullable()->default(1);;
             $table->foreign('ville_id')->references('id')->on('villes')->onDelete('cascade')->onUpdate('cascade');
 
-            $table->integer('user_id')->unsigned()->unsigned()->nullable();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
