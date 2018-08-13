@@ -13,13 +13,17 @@
 
         <p>Nom de l'auteur : {{ $post->user->name}}<p>
 
-        <p>
-            <a href='{{ URL::route('post.edit', ['post'  => $post->id]) }}'>modifier</a>
-        </p>
-        </br>
-        <form action="{{route('post.destroy', ['post'  => $post])}}" method="get">
-            <button type="submit">Supprimer</button>
-        </form>
+        @can('update', $post)
+            <p>
+                <a href='{{ URL::route('post.edit', ['post'  => $post->id]) }}'>modifier</a>
+            </p>
+        @endcan
+
+        @can('delete', $post)
+            <form action="{{route('post.destroy', ['post'  => $post])}}" method="get">
+                <button type="submit">Supprimer</button>
+            </form>
+        @endcan
         <br>
 
     @empty
