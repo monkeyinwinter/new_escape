@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Region;
+
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -75,6 +76,7 @@ class RegionController extends Controller
      */
     public function edit(Region $region)
     {
+        $this->authorize('update', $region);
         return view('region.edit', ['region'=>$region]);
     }
 
@@ -104,6 +106,7 @@ class RegionController extends Controller
      */
     public function destroy(Region $region)
     {
+        $this->authorize('delete', $region);
         $region->delete();
         return redirect()->route('region.index');
     }

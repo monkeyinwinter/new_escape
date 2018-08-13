@@ -19,6 +19,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
     ];
 
     /**
@@ -27,12 +28,17 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password',
+
         'remember_token',
+
     ];
 
     public function post() {
         return $this->hasMany('App\Post');
+    }
+
+    public function isAdmin() {
+        return $this->role === 'admin';
     }
 
 }

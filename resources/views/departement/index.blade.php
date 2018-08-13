@@ -24,16 +24,21 @@
                             <h4>{{ $departement->departement_number }}</h4>
                         </a>
                     </td>
-                    <td class="modif">
-                        <a href='{{URL::route('departement.edit', ['region' => $region, 'departement'=>$departement->id])}}'>
-                            <p>modifier</p>
-                        </a>
-                    </td>
-                    <td class="btn sup">
-                        <form action="{{route('departement.destroy', ['region' => $region, 'departement'=>$departement->id])}}" method="GET">
-                            <button type="submit">Supprimer</button>
-                        </form>
-                    </td>
+
+                    @can('update', $departement)
+                        <td class="modif">
+                            <a href='{{URL::route('departement.edit', ['region' => $region, 'departement'=>$departement->id])}}'>
+                                <p>modifier</p>
+                            </a>
+                        </td>
+                    @endcan
+                    @can('delete', $departement)
+                        <td class="btn sup">
+                            <form action="{{route('departement.destroy', ['region' => $region, 'departement'=>$departement->id])}}" method="GET">
+                                <button type="submit">Supprimer</button>
+                            </form>
+                        </td>
+                    @endcan
                 </tr>
             </table>
         </a>

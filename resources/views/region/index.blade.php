@@ -48,14 +48,18 @@ function selectregion(regID) {
                     <td>
                         <h4>{{ $region->name }}</h4>
                     </td>
-                    <td class="modif">
-                        <a href='{{URL::route('region.edit', ['region'=>$region->id])}}'>modifier</a>
-                    </td>
-                    <td class="btn sup">
-                        <form action="{{route('region.destroy', ['region'=>$region->id])}}" method="GET">
-                            <button type="submit">Supprimer</button>
-                        </form>
-                    </td>
+                    @can('update', $region)
+                        <td class="modif">
+                            <a href='{{URL::route('region.edit', ['region'=>$region->id])}}'>modifier</a>
+                        </td>
+                    @endcan
+                    @can('delete', $region)
+                        <td class="btn sup">
+                            <form action="{{route('region.destroy', ['region'=>$region->id])}}" method="GET">
+                                <button type="submit">Supprimer</button>
+                            </form>
+                        </td>
+                    @endcan
                 </tr>
             </table>
         </a>

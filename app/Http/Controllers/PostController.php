@@ -21,7 +21,6 @@ class PostController extends Controller
     // <!-- {{ $users -> name }} -->
     public function index()
     {
-
         $posts = Post::paginate(30);
         return view('post.index', ['posts'=>$posts]);
     }
@@ -46,6 +45,8 @@ class PostController extends Controller
     {
         return view('post.create');
     }
+
+
     /**
      * Store a newly created resource in storage.
      *
@@ -68,6 +69,8 @@ class PostController extends Controller
 
         return redirect()->route('post.index');
     }
+
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -78,6 +81,8 @@ class PostController extends Controller
     {
         return view('post.edit', ['post'=>$post]);
     }
+
+
     /**
      * Update the specified resource in storage.
      *
@@ -94,6 +99,8 @@ class PostController extends Controller
         $post->update($request->all());
         return redirect()->route('post.index',['post'=>$post->id]);
     }
+
+
     /**
      * Remove the specified resource from storage.
      *

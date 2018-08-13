@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Departement;
 use App\Region;
-
+use App\User;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -75,6 +75,7 @@ class DepartementController extends Controller
      */
     public function edit(Region $region, Departement $departement)
     {
+        $this->authorize('update', $departement);
         return view('departement.edit', ['departement' => $departement,'region'=>$region]);
     }
 
@@ -87,6 +88,7 @@ class DepartementController extends Controller
      */
     public function update(Request $request, Region $region, Departement $departement)
     {
+
         $request->validate([
             'name' => 'required|string|max:255',
             'slug' => 'required|string|max:255',
@@ -104,6 +106,7 @@ class DepartementController extends Controller
      */
     public function destroy(Region $region, Departement $departement)
     {
+        $this->authorize('delete', $departement);
         $departement->delete();
         return redirect()->route('departement.index', ['region'=>$region->id]);
     }
