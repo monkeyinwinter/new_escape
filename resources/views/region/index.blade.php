@@ -49,7 +49,7 @@ function selectregion(regID) {
                         <h4>{{ $region->name }}</h4>
                         <ul>
                         @foreach($region->departements as $departement)
-                            <li>{{ $departement->name }}</li>
+                            <li><a href="{{ route('ville.index', ['region' => $region, 'departement' => $departement]) }}">{{ $departement->name }}</a></li>
                         @endforeach
                         </ul>
                     </td>

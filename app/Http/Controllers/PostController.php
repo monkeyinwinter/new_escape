@@ -118,19 +118,13 @@ class PostController extends Controller
 
     public function spotPostList(Region $region, Departement $departement, Ville $ville, Spot $spot)
     {
-        $region = $region;
-        $departement = $departement;
-        $ville = $ville;
+
         $spots = $spot;
 
-
-        /*$user->load('posts.spot.ville');*/
         $user = Auth::user();
         $user->load('posts.spot');
 
-        /*$posts = Post::where('spot_id', $spot->id)->paginate(100);*/
-
-        return view('spot.spotPostList', ['user' => $user, 'spots' => $spots, 'ville' => $ville, 'departement' => $departement, 'region' => $region]);
+        return view('spot.spotPostList', ['user' => $user, 'spots' => $spots]);
     }
 
     public function spotPostCreate(Region $region, Departement $departement, Ville $ville, Spot $spot)
