@@ -58,17 +58,20 @@
                     <a href='{{URL::route('voie.showOneVoie', ['region' => $region, 'departement'=>$departement, 'ville'=>$ville, 'spot'=>$spot, 'voie'=>$voie->id])}}'>Voir la voie</a>
                 </p>
             </div>
-
-            <div class="row_col">
-                <p>
-                    <a href='{{URL::route('voie.edit', ['region' => $region, 'departement'=>$departement, 'ville'=>$ville, 'spot'=>$spot, 'voie'=>$voie->id])}}'>modifier</a>
-                </p>
-            </div>
-            <div class="row_col">
-                <form action="{{route('voie.destroy', ['region' => $region, 'departement'=>$departement, 'ville'=>$ville, 'spot'=>$spot->id, 'voie'=>$voie])}}" method="GET">
-                    <button type="submit">Supprimer</button>
-                </form>
-            </div>
+            @can('update', $voie)
+                <div class="row_col">
+                    <p>
+                        <a href='{{URL::route('voie.edit', ['region' => $region, 'departement'=>$departement, 'ville'=>$ville, 'spot'=>$spot, 'voie'=>$voie->id])}}'>modifier</a>
+                    </p>
+                </div>
+            @endcan
+            @can('delete', $voie)
+                <div class="row_col">
+                    <form action="{{route('voie.destroy', ['region' => $region, 'departement'=>$departement, 'ville'=>$ville, 'spot'=>$spot->id, 'voie'=>$voie])}}" method="GET">
+                        <button type="submit">Supprimer</button>
+                    </form>
+                </div>
+            @endcan
         </div>
     @empty
         <p>Aucun spot</p>

@@ -8,13 +8,14 @@
     <h1>
       <a href='{{ URL::route('departement.index', ['region' => $region]) }}'>
         {{ $region->name}}
+          {{ $user->id}}
       </a>
     </h1>
     <h1>{{ $departement->name}}</h1>
     <h2>
         Nombre de Villes : {{ count($villes) }}
     </h2>
-    <a href='{{ URL::route('ville.create', ['region' => $region,'departement' => $departement]) }}'>créer une nouvelle ville</a>
+    <a href='{{ URL::route('ville.create', ['region' => $region,'departement' => $departement, 'user' => $user]) }}'>créer une nouvelle ville</a>
 
     @forelse ($villes as $ville)
 
@@ -32,16 +33,20 @@
                         <td>
 
                         </td>
-                        <td class="modif">
-                            <p>
-                                <a href='{{URL::route('ville.edit', ['region' => $region, 'departement'=>$departement, 'ville'=>$ville->id])}}'>modifier</a>
-                            </p>
-                        </td>
-                        <td class="btn sup">
-                            <form action="{{route('ville.destroy', ['region' => $region, 'departement'=>$departement, 'ville'=>$ville->id])}}" method="GET">
-                                <button type="submit" >Supprimer</button>
-                            </form>
-                        </td>
+                        @can('update', $ville)
+                            <td class="modif">
+                                <p>
+                                    <a href='{{URL::route('ville.edit', ['region' => $region, 'departement'=>$departement, 'ville'=>$ville->id])}}'>modifier</a>
+                                </p>
+                            </td>
+                        @endcan
+                        @can('delete', $ville)
+                            <td class="btn sup">
+                                <form action="{{route('ville.destroy', ['region' => $region, 'departement'=>$departement, 'ville'=>$ville->id])}}" method="GET">
+                                    <button type="submit" >Supprimer</button>
+                                </form>
+                            </td>
+                        @endcan
                     </tr>
                 </table>
             </div>

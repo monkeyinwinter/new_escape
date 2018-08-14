@@ -9,8 +9,9 @@
     <h2>
         Nombre de Departements : {{ count($departements) }}
     </h2>
-    <a href='{{ URL::route('departement.create', ['region' => $region]) }}'>créer un nouveau departement</a>
-
+    @can('update', $departements)
+        <a href='{{ URL::route('departement.create', ['region' => $region]) }}'>créer un nouveau departement</a>
+    @endcan
     @forelse ($departements as $departement)
 
         <a href='{{URL::route('ville.index', ['region' => $region, 'departement'=>$departement->id])}}'>

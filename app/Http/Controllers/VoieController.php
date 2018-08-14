@@ -7,10 +7,13 @@ use App\Spot;
 use App\Ville;
 use App\Departement;
 use App\Region;
+use App\User;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Image;
-/*use Image;*/
+use Illuminate\Support\Facades\Auth;
+
 
 class VoieController extends Controller
 {
@@ -20,10 +23,11 @@ class VoieController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Region $region, Departement $departement, Ville $ville, Spot $spot)
+    public function index(Region $region, Departement $departement, Ville $ville, Spot $spot, User $user)
     {
+        $user = Auth::user();
       $voies = Voie::where('spot_id',$spot->id)->paginate(100);
-      return view('voie.index', ['voies'=>$voies, 'spot'=>$spot, 'ville' => $ville, 'departement' => $departement, 'region' => $region]);
+      return view('voie.index', ['voies'=>$voies, 'spot'=>$spot, 'ville' => $ville, 'departement' => $departement, 'region' => $region, 'user' => $user]);
     }
 
 
@@ -43,9 +47,10 @@ class VoieController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Region $region, Departement $departement, Ville $ville, Spot $spot)
+    public function create(Region $region, Departement $departement, Ville $ville, Spot $spot, User $user)
     {
-      return view('voie.create', ['departement'=> $departement,'region' => $region, 'ville'=>$ville, 'spot'=>$spot]);
+        $user = Auth::user();
+      return view('voie.create', ['departement'=> $departement,'region' => $region, 'ville'=>$ville, 'spot'=>$spot, 'user' => $user]);
     }
 
     /**
@@ -56,6 +61,7 @@ class VoieController extends Controller
      */
     public function store(Request $request, Region $region, Departement $departement, Ville $ville, Spot $spot)
     {
+        $user = Auth::user();
       $validatedData = $request->validate([
           'name' => 'required|max:255',
           'slug' => 'required|max:255',
@@ -91,6 +97,7 @@ class VoieController extends Controller
      */
     public function edit(Region $region, Departement $departement, Ville $ville, Spot $spot, Voie $voie)
     {
+        $this->authorize('update', $voie);
         return view('voie.edit', ['region'=>$region,'departement' => $departement,'ville'=>$ville, 'spot'=>$spot, 'voie'=>$voie]);
     }
 
@@ -103,6 +110,7 @@ class VoieController extends Controller
      */
     public function update(Request $request, Region $region, Departement $departement, Ville $ville, Spot $spot, Voie $voie)
     {
+        $user = Auth::user();
       $request->validate([
         'name' => 'required|max:255',
         'slug' => 'required|max:255',
@@ -124,6 +132,7 @@ class VoieController extends Controller
      */
     public function destroy(Region $region, Departement $departement, Ville $ville, Spot $spot, Voie $voie)
     {
+        $this->authorize('delete', $voie);
       $voie->delete();
       return redirect()->route('voie.index', ['region'=>$region->id, 'departement'=>$departement->id, 'ville'=>$ville->id, 'spot'=>$spot->id]);
     }

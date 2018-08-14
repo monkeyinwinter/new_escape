@@ -59,7 +59,9 @@ Route::prefix('region')->group(function () {
     Route::post('{region}/departement/{departement}/ville/{ville}/spot/', 'SpotController@store')->name('spot.store');
     //Route::get('{region}/departement/{departement}/ville/{ville}/spot/{spot}', 'SpotController@show')->name('ville_show');
     Route::get('{region}/departement/{departement}/ville/{ville}/spot/{spot}/edit', 'SpotController@edit')->name('spot.edit');
-    Route::post('{region}/departement/{departement}/ville/{ville}/spot/{spot}', 'SpotController@update')->name('spot.update');
+
+    Route::post('{region}/departement/{departement}/ville/{ville}/spot/{spot}/update', 'SpotController@update')->name('spot.update');
+
     Route::get('{region}/departement/{departement}/ville/{ville}/spot/{spot}/destroy', 'SpotController@destroy')->name('spot.destroy');
 
     Route::get('{region}/departement/{departement}/ville/{ville}/spot/{spot}/voie', 'VoieController@index')->name('voie.index');
@@ -76,7 +78,7 @@ Route::prefix('region')->group(function () {
 
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/index', 'UserController@index')->name('user.index');
+Route::get('/monprofil', 'UserController@index')->name('user.index');
 Route::get('/index/mesposts', 'PostController@mesposts')->name('post.mesposts');
 
 

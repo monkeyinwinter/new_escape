@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Ville;
 use App\Departement;
 use App\Region;
+use App\User;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class VilleController extends Controller
 {
@@ -14,10 +17,11 @@ class VilleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Region $region, Departement $departement)
+    public function index(Region $region, Departement $departement, User $user)
     {
+        $user = Auth::user();
         $villes = Ville::where('departement_id',$departement->id)->paginate(100);
-        return view('ville.index', ['villes' => $villes, 'departement' => $departement, 'region' => $region]);
+        return view('ville.index', ['villes' => $villes, 'departement' => $departement, 'region' => $region, 'user' => $user]);
     }
 
 
@@ -31,9 +35,10 @@ class VilleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Region $region, Departement $departement)
+    public function create(Region $region, Departement $departement, User $user)
     {
-        return view('ville.create', ['departement'=> $departement,'region' => $region]);
+        $user = Auth::user();
+        return view('ville.create', ['departement'=> $departement,'region' => $region, 'user' => $user]);
     }
 
     /**
@@ -42,8 +47,9 @@ class VilleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Region $region, Departement $departement)
+    public function store(Request $request, Region $region, Departement $departement, User $user)
     {
+        $user = Auth::user();
         $validatedData = $request->validate([
             'name' => 'required|max:255',
             'slug' => 'required|max:255',
@@ -52,6 +58,7 @@ class VilleController extends Controller
          ]);
         $ville = new Ville($validatedData);
         $ville->departement_id = $departement->id;
+        $ville->user_id = $user->id;
         $ville->save();
         return redirect()->route('ville.index', ['region'=>$region->id, 'departement'=>$departement->id]);
     }
@@ -75,6 +82,7 @@ class VilleController extends Controller
      */
     public function edit(Region $region, Departement $departement, Ville $ville)
     {
+        $this->authorize('update', $ville);
         return view('ville.edit', ['region'=>$region,'departement' => $departement,'ville'=>$ville]);
     }
 
@@ -105,6 +113,7 @@ class VilleController extends Controller
      */
     public function destroy(Region $region, Departement $departement, Ville $ville)
     {
+        $this->authorize('delete', $ville);
         $ville->delete();
         return redirect()->route('ville.index', ['region'=>$region->id, 'departement'=>$departement->id]);
     }

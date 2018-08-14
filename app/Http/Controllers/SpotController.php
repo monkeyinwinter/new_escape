@@ -8,7 +8,10 @@ use App\Ville;
 use App\Departement;
 use App\Region;
 use App\Post;
+use App\User;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SpotController extends Controller
 {
@@ -17,10 +20,11 @@ class SpotController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Region $region, Departement $departement, Ville $ville)
+    public function index(Region $region, Departement $departement, Ville $ville, User $user)
     {
+        $user = Auth::user();
       $spots = Spot::where('ville_id',$ville->id)->paginate(100);
-      return view('spot.index', ['spots'=>$spots, 'ville' => $ville, 'departement' => $departement, 'region' => $region]);
+      return view('spot.index', ['spots'=>$spots, 'ville' => $ville, 'departement' => $departement, 'region' => $region, 'user' => $user]);
     }
 
     /**
@@ -28,8 +32,9 @@ class SpotController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Region $region, Departement $departement, Ville $ville)
+    public function create(Region $region, Departement $departement, Ville $ville, User $user)
     {
+        $user = Auth::user();
         return view('spot.create', ['departement'=> $departement,'region' => $region, 'ville'=>$ville]);
     }
 
@@ -39,8 +44,9 @@ class SpotController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Region $region, Departement $departement, Ville $ville)
+    public function store(Request $request, Region $region, Departement $departement, Ville $ville, User $user)
     {
+        $user = Auth::user();
       $validatedData = $request->validate([
           'name' => 'required|max:255',
           'slug' => 'required|max:255',
@@ -64,6 +70,7 @@ class SpotController extends Controller
        ]);
       $spot = new Spot($validatedData);
       $spot->ville_id = $ville->id;
+      $spot->user_id = $user->id;
       $spot->save();
       return redirect()->route('spot.index', ['region'=>$region->id, 'departement'=>$departement->id, 'ville'=>$ville->id]);
     }
@@ -87,6 +94,7 @@ class SpotController extends Controller
      */
     public function edit(Region $region, Departement $departement, Ville $ville, Spot $spot)
     {
+        $this->authorize('update', $spot);
         return view('spot.edit', ['region'=>$region,'departement' => $departement,'ville'=>$ville, 'spot'=>$spot]);
     }
 
@@ -97,8 +105,9 @@ class SpotController extends Controller
      * @param  \App\Spot  $spot
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Region $region, Departement $departement, Ville $ville, Spot $spot)
+    public function update(Request $request, Region $region, Departement $departement, Ville $ville, Spot $spot, User $user)
     {
+        $user = Auth::user();
       $request->validate([
         'name' => 'required|max:255',
         'slug' => 'required|max:255',
@@ -132,6 +141,7 @@ class SpotController extends Controller
      */
     public function destroy(Region $region, Departement $departement, Ville $ville, Spot $spot)
     {
+        $this->authorize('delete', $spot);
       $spot->delete();
       return redirect()->route('spot.index', ['region'=>$region->id, 'departement'=>$departement->id, 'ville'=>$ville->id]);
     }

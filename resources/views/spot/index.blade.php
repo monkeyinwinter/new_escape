@@ -46,18 +46,21 @@
 
             <div class="row_col">
                 <p>
-                    <a href='{{URL::route('spot.edit', ['region' => $region, 'departement'=>$departement, 'ville'=>$ville, 'spot'=>$spot->id])}}'>modifier</a>
+                    @can('update', $spot)
+                        <a href='{{URL::route('spot.edit', ['region' => $region, 'departement'=>$departement, 'ville'=>$ville, 'spot'=>$spot->id])}}'>modifier</a>
+                    @endcan
                     <a href='{{URL::route('voie.index', ['region' => $region, 'departement'=>$departement, 'ville'=>$ville, 'spot'=>$spot->id])}}'>Voies</a>
                 </p>
                 <h2><a href='{{URL::route('spot.spotPostList', ['region' => $region, 'departement'=>$departement, 'ville'=>$ville, 'spot'=>$spot->id])}}'>Voir les posts de ce site</a></h2>
                 <h2><a href='{{URL::route('spot.spotPostCreate', ['region' => $region, 'departement'=>$departement, 'ville'=>$ville, 'spot'=>$spot->id])}}'>Créer un post pour ce site</a></h2>
             </div>
-
-            <div class="row_col">
-                <form action="{{route('spot.destroy', ['region' => $region, 'departement'=>$departement, 'ville'=>$ville, 'spot'=>$spot->id])}}" method="GET">
-                    <button type="submit">Supprimer</button>
-                </form>
-            </div>
+            @can('delete', $spot)
+                <div class="row_col">
+                    <form action="{{route('spot.destroy', ['region' => $region, 'departement'=>$departement, 'ville'=>$ville, 'spot'=>$spot->id])}}" method="GET">
+                        <button type="submit">Supprimer</button>
+                    </form>
+                </div>
+            @endcan
         </div>
     @empty
         <p>Aucun spot</p>
