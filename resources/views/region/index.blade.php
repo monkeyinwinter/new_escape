@@ -18,7 +18,7 @@ function selectregion(regID) {
     <a href='{{ URL::route('home') }}'>Home</a>
 
     <h2>
-        Nombre de Regions : {{ count($regions) }}
+        Nombre de Regions : {{ $regions->count() }}
     </h2>
 
 {{--
@@ -47,6 +47,11 @@ function selectregion(regID) {
                 <tr>
                     <td>
                         <h4>{{ $region->name }}</h4>
+                        <ul>
+                        @foreach($region->departements as $departement)
+                            <li>{{ $departement->name }}</li>
+                        @endforeach
+                        </ul>
                     </td>
                     @can('update', $region)
                         <td class="modif">

@@ -35,7 +35,7 @@ class Spot extends Model
     public function voie() {
       return $this->hasMany('App\Voie');
     }
-    public function post() {
+    public function posts() {
         return $this->hasMany('App\Post');
     }
 

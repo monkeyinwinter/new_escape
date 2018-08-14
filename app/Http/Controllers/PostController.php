@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Spot;
@@ -22,17 +23,16 @@ class PostController extends Controller
     public function index()
     {
         $posts = Post::paginate(30);
-        return view('post.index', ['posts'=>$posts]);
+        return view('post.index', ['posts' => $posts]);
     }
 
 
     public function mesposts()
     {
         $user = Auth::user();
+        $user->load('posts.spot.ville');
 
-        $posts = Post::where('user_id',$user->id)->paginate(100);
-
-        return view('post.mesposts', ['posts'=>$posts]);
+        return view('post.mesposts', ['user' => $user]);
     }
 
 
@@ -50,7 +50,7 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -74,21 +74,21 @@ class PostController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Post  $post
+     * @param  \App\Post $post
      * @return \Illuminate\Http\Response
      */
     public function edit(Post $post)
     {
         $this->authorize('update', $post);
-        return view('post.edit', ['post'=>$post]);
+        return view('post.edit', ['post' => $post]);
     }
 
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Post  $post
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Post $post
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Post $post)
@@ -98,14 +98,14 @@ class PostController extends Controller
             'textPost' => 'required|max:255',
         ]);
         $post->update($request->all());
-        return redirect()->route('post.index',['post'=>$post->id]);
+        return redirect()->route('post.index', ['post' => $post->id]);
     }
 
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Post  $post
+     * @param  \App\Post $post
      * @return \Illuminate\Http\Response
      */
     public function destroy(Post $post)
@@ -123,20 +123,25 @@ class PostController extends Controller
         $ville = $ville;
         $spots = $spot;
 
-        $posts = Post::where('spot_id',$spot->id)->paginate(100);
 
-        return view('spot.spotPostList', ['posts'=>$posts, 'spots'=>$spots, 'ville' => $ville, 'departement' => $departement, 'region' => $region]);
+        /*$user->load('posts.spot.ville');*/
+        $user = Auth::user();
+        $user->load('posts.spot');
+
+        /*$posts = Post::where('spot_id', $spot->id)->paginate(100);*/
+
+        return view('spot.spotPostList', ['user' => $user, 'spots' => $spots, 'ville' => $ville, 'departement' => $departement, 'region' => $region]);
     }
 
     public function spotPostCreate(Region $region, Departement $departement, Ville $ville, Spot $spot)
     {
-        return view('spot.spotPostCreate', ['spot'=>$spot, 'region' => $region, 'departement' => $departement, 'ville' => $ville ]);
+        return view('spot.spotPostCreate', ['spot' => $spot, 'region' => $region, 'departement' => $departement, 'ville' => $ville]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function spotPostStore(Request $request, Region $region, Departement $departement, Ville $ville, Spot $spot)
@@ -157,7 +162,7 @@ class PostController extends Controller
 
         $post->save();
 
-        return redirect()->route('spot.index', ['spots'=>$spots, 'ville' => $ville, 'departement' => $departement, 'region' => $region]);
+        return redirect()->route('spot.index', ['spots' => $spots, 'ville' => $ville, 'departement' => $departement, 'region' => $region]);
     }
 
 

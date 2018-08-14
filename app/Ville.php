@@ -19,7 +19,7 @@ class Ville extends Model
     public function user() {
         return $this->belongsTo('App\User');
     }
-    public function spot() {
+    public function spots() {
         return $this->hasMany('App\Spot');
     }
 

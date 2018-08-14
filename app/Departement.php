@@ -15,7 +15,7 @@ class Departement extends Model
     public function region() {
         return $this->belongsTo('App\Region');
     }
-    public function ville() {
+    public function villes() {
         return $this->hasMany('App\Ville');
     }
 }

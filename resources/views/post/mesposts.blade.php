@@ -1,4 +1,5 @@
 @extends('layouts.base')
+
 @section('contenu')
 
     <a href='{{ URL::route('home') }}'>Home</a>
@@ -6,7 +7,7 @@
     <p>post mesposts</p>
     <a href='{{ URL::route('post.create') }}'>créer un nouveau post</a>
 
-    @forelse ($posts as $post)
+    @forelse ($user->posts as $post)
 
 
             <h4>{{ $post->title }}</h4>
@@ -23,6 +24,7 @@
             <form action="{{route('post.destroy', ['post'  => $post])}}" method="get">
                 <button type="submit">Supprimer</button>
             </form>
+
 
 
     @empty

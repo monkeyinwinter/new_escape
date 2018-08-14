@@ -9,7 +9,7 @@
 
 {{--    <a href='{{ URL::route('post.create') }}'>créer un nouveau post</a>--}}
 
-    @forelse ($posts as $post)
+    @forelse ($user->posts as $post)
 
             <h4>{{ $post->title }}</h4>
 

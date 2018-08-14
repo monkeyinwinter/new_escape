@@ -1,4 +1,5 @@
 @extends('layouts.base')
+
 @section('contenu')
 
     <a href='{{ URL::route('home') }}'>Home</a>
@@ -40,7 +41,7 @@
                 <p>Nombre de voies niveau 7 : {{ $spot->voies_7 }}</p>
                 <p>Nombre de voies niveau 8 : {{ $spot->voies_8 }}</p>
 
-
+                @include('post.mespostsnew', ['totos' => $spot->posts])
 
             </div>
 
@@ -62,6 +63,10 @@
                 </div>
             @endcan
         </div>
+
+
+
+
     @empty
         <p>Aucun spot</p>
     @endforelse
